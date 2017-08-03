@@ -71,19 +71,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CustomCommands.cs" />
-    <Compile Include="DodajEdytuj.xaml.cs">
-      <DependentUpon>DodajEdytuj.xaml</DependentUpon>
+    <Compile Include="AddEditQuestion.xaml.cs">
+      <DependentUpon>AddEditQuestion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Odpowiedz.cs" />
     <Compile Include="Converters\SubtractConverter.cs" />
-    <Compile Include="TrybEdycji1.xaml.cs">
-      <DependentUpon>TrybEdycji1.xaml</DependentUpon>
+    <Compile Include="BaseQuestionBrowser.xaml.cs">
+      <DependentUpon>BaseQuestionBrowser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UczenieSie.xaml.cs">
-      <DependentUpon>UczenieSie.xaml</DependentUpon>
+    <Compile Include="Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainWindowVM.cs" />
-    <Page Include="DodajEdytuj.xaml">
+    <Page Include="AddEditQuestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,11 +98,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TrybEdycji1.xaml">
+    <Page Include="BaseQuestionBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UczenieSie.xaml">
+    <Page Include="Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

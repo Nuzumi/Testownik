@@ -21,7 +21,7 @@ namespace Testownik.ViewModels
 
         private void ToTrybEdycji(Window window)
         {
-            TrybEdycji1 trybEdycji = new TrybEdycji1();
+            BaseQuestionBrowser trybEdycji = new BaseQuestionBrowser();
             trybEdycji.Show();
             window.Close();
         }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Nowy folder\c#_programy\Testownik\Testownik\App.xaml
-41477478070
+4771252747
 
-161905544330
+151995058208
 68-517654190
-DodajEdytuj.xaml;MainWindow.xaml;TrybEdycji1.xaml;UczenieSie.xaml;
+AddEditQuestion.xaml;MainWindow.xaml;BaseQuestionBrowser.xaml;Test.xaml;
 
-False
+True
 
