@@ -12,17 +12,32 @@ namespace Testownik.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
-        public ICommand TrybEdycjiCommand { get; set; }
+        public ICommand ToBrowserCommand { get; set; }
+        public ICommand ToTestCommand { get; set; }
 
         public MainWindowVM()
         {
-            TrybEdycjiCommand = new DelegateCommand<Window>(ToTrybEdycji);
+            ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
+            ToTestCommand = new DelegateCommand<Window>(ToTest);
         }
 
-        private void ToTrybEdycji(Window window)
+        private void ToBrowser(Window window)
         {
             BaseQuestionBrowser trybEdycji = new BaseQuestionBrowser();
+            BaseQuestionBrowserVM baseQuestionBrowserVm = new BaseQuestionBrowserVM();
+            trybEdycji.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            trybEdycji.DataContext = baseQuestionBrowserVm;
             trybEdycji.Show();
+            window.Close();
+        }
+
+        private void ToTest(Window window)
+        {
+            Test test = new Test();
+            TestVM testVM = new TestVM();
+            test.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            test.DataContext = testVM;
+            test.Show();
             window.Close();
         }
     }

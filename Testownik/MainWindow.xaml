@@ -62,8 +62,8 @@
             <Slider Grid.Column="1" Grid.Row="5" Minimum="1" Maximum="50" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
             <Label Grid.Row="5" Grid.Column="2" Content="max" VerticalAlignment="Center"/>
         </Grid>
-        <Button Grid.Column="1" Command="{Binding TrybEdycjiCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,20,17,10" Content="tryb edycji" MinHeight="45"/>
-        <Button Grid.Column="1" Grid.Row="2" Margin="17,25,17,25" Content="zacznij sie uczyc" />
+        <Button Grid.Column="1" Command="{Binding ToBrowserCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,20,17,10" Content="tryb edycji" MinHeight="45"/>
+        <Button Grid.Column="1" Grid.Row="2" Command="{Binding ToTestCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,25,17,25" Content="zacznij sie uczyc" />
         <Button Grid.Column="1" Grid.Row="3" Margin="17,25,17,25" Content="kontynuluj ostatnie podejscie" />
     </Grid>
 </Window>

@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace Testownik
 {
+    enum WindowsTypes {Main,AddEdit,Browser,Test };
     /// <summary>
     /// Logika interakcji dla klasy App.xaml
     /// </summary>
