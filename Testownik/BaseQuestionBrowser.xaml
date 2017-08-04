@@ -52,7 +52,7 @@
             <Label>content    f</Label>
             <Label>content    f</Label>
         </ListView>
-        <Button Grid.Row="5" Content="dodaj baze"/>
+        <Button Grid.Row="5" Content="dodaj baze" Command="{Binding AddDatabaseCommand}"/>
         <Button Grid.Row="6" Content="wiecej opcji" Style="{StaticResource contextMenu}">
             <Button.ContextMenu>
                 <ContextMenu>

@@ -28,3 +28,5 @@ D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\BaseQuestionBrowser.g.c
 D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\Test.g.cs
 D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\BaseQuestionBrowser.baml
 D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\Test.baml
+D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\AddDatabaseDialogWindow.g.cs
+D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\AddDatabaseDialogWindow.baml

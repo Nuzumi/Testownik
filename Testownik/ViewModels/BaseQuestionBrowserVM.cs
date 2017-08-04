@@ -16,12 +16,16 @@ namespace Testownik.ViewModels
         public ICommand ToMainWindowCommand { get; set; }
         public ICommand ToAddQuestionCommand { get; set; }
         public ICommand ToEditQuestionCommand { get; set; }
+        public ICommand AddDatabaseCommand { get; set; }
+
+        public bool CanOpenAddDatabaseDialogWindow = true;
 
         public BaseQuestionBrowserVM()
         {
             ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
             ToAddQuestionCommand = new DelegateCommand<Window>(ToAddQuestion);
             ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);//dodac canExecute jak bedzi juz pole z id
+            AddDatabaseCommand = new DelegateCommand(AddDatabase,CanAddDatabase);
         }
 
         private void ToMainWindow(Window window)
@@ -50,6 +54,20 @@ namespace Testownik.ViewModels
             addEdit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             addEdit.Show();
             window.Close();
+        }
+
+        private void AddDatabase()
+        {
+            CanOpenAddDatabaseDialogWindow = false;
+            AddDatabaseDialogWindow dialog = new AddDatabaseDialogWindow();
+            AddDatabaseDialogVM dataContext = new AddDatabaseDialogVM(this);
+            dialog.DataContext = dataContext;
+            dialog.Show();
+        }
+
+        private bool CanAddDatabase()
+        {
+            return CanOpenAddDatabaseDialogWindow;
         }
 
     }
