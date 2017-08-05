@@ -22,12 +22,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ListView Grid.RowSpan="2" Margin="20" SelectionMode="Single">
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                       <!-- <Label Content="numerek" DockPanel.Dock="Right"/>-->
+                       <!-- <Label Content="ilosc pytan: " DockPanel.Dock="Left"/>-->
+                        <Label Content=""/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Grid Grid.Row="2" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>

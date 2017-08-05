@@ -20,7 +20,6 @@ namespace Testownik.ViewModels
         public ICommand CancleCommand { get; set; }
 
         private BaseQuestionBrowserVM previousWindow;
-        private bool CanAddDatabase = false;
 
         public AddDatabaseDialogVM(BaseQuestionBrowserVM previousWindow)
         {
