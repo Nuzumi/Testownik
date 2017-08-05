@@ -66,6 +66,11 @@ C:\Milena\C#\Testownik\Testownik\obj\Debug\Testownik.Properties.Resources.resour
 C:\Milena\C#\Testownik\Testownik\obj\Debug\Testownik.csproj.GenerateResource.Cache
 C:\Milena\C#\Testownik\Testownik\obj\Debug\AddDatabaseDialogWindow.g.cs
 C:\Milena\C#\Testownik\Testownik\obj\Debug\AddDatabaseDialogWindow.baml
+
+D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\EntityFramework.dll
+D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\EntityFramework.SqlServer.dll
+D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\EntityFramework.xml
+D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\EntityFramework.SqlServer.xml
 C:\Milena\C#\Testownik\Testownik\bin\Debug\testownik.sqlite
 C:\Milena\C#\Testownik\Testownik\bin\Debug\System.Data.SQLite.dll
 C:\Milena\C#\Testownik\Testownik\bin\Debug\System.Data.SQLite.EF6.dll
