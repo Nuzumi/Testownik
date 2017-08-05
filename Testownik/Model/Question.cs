@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,13 @@ namespace Testownik.Model
             QuestionAnswers = new List<Answer>();
         }
 
-        public long Ref { get; set; }
+        [Key]
+        public int Ref { get; set; }
 
-        public long RefDatabase { get; set; }
-        public virtual Database Database { get; set; }
+        public int RefTest { get; set; }
+        public virtual Test Test { get; set; }
 
-        public long QuestionNo { get; set; }
+        public int QuestionNo { get; set; }
         public string Content { get; set; }
         public byte[] Photo { get; set; }
 

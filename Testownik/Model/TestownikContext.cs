@@ -13,10 +13,10 @@ namespace Testownik.Model
         public TestownikContext()
         {
             // Turn off the Migrations, (NOT a code first Db)
-            System.Data.Entity.Database.SetInitializer<TestownikContext>(null);
+            Database.SetInitializer<TestownikContext>(null);
         }
 
-        public DbSet<Database> Databases { get; set; }
+        public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
 

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Testownik.Model;
 
 namespace Testownik.ViewModels
 {
@@ -14,11 +15,14 @@ namespace Testownik.ViewModels
     {
         public ICommand ToBrowserCommand { get; set; }
         public ICommand ToTestCommand { get; set; }
+        public static TestownikContext context;
 
         public MainWindowVM()
         {
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest);
+            context = new TestownikContext();
+            MessageBox.Show(context.Tests.First().Name);
         }
 
         private void ToBrowser(Window window)
