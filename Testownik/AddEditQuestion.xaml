@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testownik"
         mc:Ignorable="d"
-        Title="DodajEdytuj" Height="540" Width="740">
+        Title="DodajEdytuj" Height="540" Width="740" Name="window">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -21,16 +22,20 @@
         <Label  Margin="8">
             pytanie
         </Label>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="10,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center">
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed dolor viverra, vestibulum sapien sit amet, aliquet nulla. Fusce ullamcorper, leo eu accumsan semper, ligula est tempor lacus, eu pellentesque velit mauris vitae tellus. Phasellus sit amet nibh interdum, pulvinar massa vel, pharetra nibh.
         </TextBlock>
-        <Button Grid.Row="3" Margin="10">
+        <Image Grid.ColumnSpan="3" Grid.Row="2" Margin="10,0,0,0" Source="{Binding ImageSource}"/>
+        <Button Grid.Row="3" Margin="10" Command="{Binding GoBackCommand}" CommandParameter="{Binding ElementName=window}">
             powrot
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" Margin="10">
+        <Button Grid.Column="1" Grid.Row="3" Margin="10">
+            zapiszcz
+        </Button>
+        <Button Grid.Row="3" Grid.Column="2" Margin="10">
             dodaj obrazek
         </Button>
-        <ListView  Grid.Column="2" Grid.RowSpan="3" Name="odpowiedziListView" Margin="15" HorizontalContentAlignment="Stretch">
+        <ListView  Grid.Column="3" Grid.RowSpan="3" Margin="15" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid >
@@ -51,6 +56,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Column="2" Grid.Row="3" Margin="15,10,15,10" Content="+"/>
+        <Button Grid.Column="3" Grid.Row="3" Margin="15,10,15,10" Content="+"/>
     </Grid>
 </Window>

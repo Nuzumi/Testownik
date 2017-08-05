@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testownik"
         mc:Ignorable="d"
-        Title="UczenieSie" Height="540" Width="740">
+        Title="UczenieSie" Height="540" Width="740" x:Name="window">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="15,7,15,7"/>
@@ -26,7 +26,7 @@
         <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="15">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed dolor viverra, vestibulum sapien sit amet, aliquet nulla. Fusce ullamcorper, leo eu accumsan semper, ligula est tempor lacus, eu pellentesque velit mauris vitae tellus. Phasellus sit amet nibh interdum, pulvinar massa vel, pharetra nibh.
         </TextBlock>
-        <ListView Grid.Row="1" Grid.ColumnSpan="3" Name="odpowiedziListView" Margin="15" SelectionMode="Multiple">
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="15" SelectionMode="Multiple">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Tekst}" Margin="10"/>
@@ -35,8 +35,8 @@
         </ListView>
         <Image Grid.Column="2" Grid.ColumnSpan="2" />
         <Image Grid.Column="3" Grid.Row="1" />
-        <Button Grid.Row="3" Content="powrot"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="edytuj"/>
+        <Button Grid.Row="3" Command="{Binding ToMainWindowCommand}" CommandParameter="{Binding ElementName=window}" Content="powrot"/>
+        <Button Grid.Row="3" Grid.Column="1" Command="{Binding ToEditQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="edytuj"/>
         <Button Grid.Row="3" Grid.Column="2" Content="sprawdz"/>
         <Button Grid.Row="3" Grid.Column="3" Content="dalej"/>
     </Grid>

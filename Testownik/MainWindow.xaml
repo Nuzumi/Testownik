@@ -21,7 +21,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="2" Margin="20">
+        <ListView Grid.RowSpan="2" Margin="20" SelectionMode="Single">
             <Label>content    f</Label>
             <Label>content    f</Label>
             <Label>content    f</Label>
@@ -43,27 +43,30 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.ColumnSpan="3">
-                ilosc pytan na poczatek
-            </Label>
+            <WrapPanel Grid.ColumnSpan="3">
+                <Label Content="ilosc pytan na poczatek:"/>
+                <Label Content="{Binding ElementName=slider1, Path=Value, UpdateSourceTrigger=PropertyChanged}" Margin="4,0,0,0"/>
+            </WrapPanel>
             <Label Grid.Row="1" Content="min" VerticalAlignment="Center"/>
-            <Slider Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="50" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
+            <Slider Grid.Column="1" Grid.Row="1" Minimum="1" Maximum="50" Name="slider1" IsSnapToTickEnabled="True" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
             <Label Grid.Row="1" Grid.Column="2" Content="max" VerticalAlignment="Center"/>
-            <Label Grid.Row="2" Grid.ColumnSpan="3" >
-                ilosc powtorzen po blednej odpowiedzi
-            </Label>
+            <WrapPanel Grid.Row="2" Grid.ColumnSpan="3" >
+                <Label Content="ilosc powtorzen po blednej odpowiedzi:"/>
+                <Label Content="{Binding ElementName=slider2, Path=Value, UpdateSourceTrigger=PropertyChanged}" Margin="4,0,0,0"/>
+            </WrapPanel>
             <Label Grid.Row="3" Content="min" VerticalAlignment="Center"/>
-            <Slider Grid.Column="1" Grid.Row="3" Minimum="1" Maximum="50" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
+            <Slider Grid.Column="1" Grid.Row="3" IsSnapToTickEnabled="True" Name="slider2" Minimum="0" Maximum="10" VerticalAlignment="Center" TickFrequency="1" TickPlacement="BottomRight"/>
             <Label Grid.Row="3" Grid.Column="2" Content="max" VerticalAlignment="Center"/>
-            <Label Grid.ColumnSpan="3" Grid.Row="4">
-                ilosc pytan naraz
-            </Label>
+            <WrapPanel Grid.ColumnSpan="3" Grid.Row="4">
+                <Label Content="ilosc pytan naraz:"/>
+                <Label Content="{Binding ElementName=slider3, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
             <Label Grid.Row="5" Content="min" VerticalAlignment="Center"/>
-            <Slider Grid.Column="1" Grid.Row="5" Minimum="1" Maximum="50" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
+            <Slider Grid.Column="1" Grid.Row="5" IsSnapToTickEnabled="True" Name="slider3" Minimum="1"  Maximum="50" VerticalAlignment="Center" TickFrequency="2" TickPlacement="BottomRight"/>
             <Label Grid.Row="5" Grid.Column="2" Content="max" VerticalAlignment="Center"/>
         </Grid>
-        <Button Grid.Column="1" Command="{Binding TrybEdycjiCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,20,17,10" Content="tryb edycji" MinHeight="45"/>
-        <Button Grid.Column="1" Grid.Row="2" Margin="17,25,17,25" Content="zacznij sie uczyc" />
+        <Button Grid.Column="1" Command="{Binding ToBrowserCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,20,17,10" Content="tryb edycji" MinHeight="45"/>
+        <Button Grid.Column="1" Grid.Row="2" Command="{Binding ToTestCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,25,17,25" Content="zacznij sie uczyc" />
         <Button Grid.Column="1" Grid.Row="3" Margin="17,25,17,25" Content="kontynuluj ostatnie podejscie" />
     </Grid>
 </Window>

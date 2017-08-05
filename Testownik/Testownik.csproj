@@ -85,7 +85,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CustomCommands.cs" />
+    <Compile Include="AddDatabaseDialogWindow.xaml.cs">
+      <DependentUpon>AddDatabaseDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEditQuestion.xaml.cs">
       <DependentUpon>AddEditQuestion.xaml</DependentUpon>
     </Compile>
@@ -100,7 +102,15 @@
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AddDatabaseDialogVM.cs" />
+    <Compile Include="ViewModels\AddEditQuestionVM.cs" />
+    <Compile Include="ViewModels\BaseQuestionBrowserVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Compile Include="ViewModels\TestVM.cs" />
+    <Page Include="AddDatabaseDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddEditQuestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
