@@ -21,13 +21,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="2" Margin="20" SelectionMode="Single"  HorizontalContentAlignment="Stretch" ItemsSource="{Binding TestList}" SelectedItem="{Binding selectedTest, UpdateSourceTrigger=PropertyChanged}">
+        <ListView Grid.RowSpan="2" Margin="20" SelectionMode="Single"  HorizontalContentAlignment="Stretch" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <Label Content="{Binding Path=Ref}" DockPanel.Dock="Right"/>
+                        <Label Content="{Binding Ref}" DockPanel.Dock="Right"/>
                         <Label Content="ilosc pytan: " DockPanel.Dock="Right"/>
-                        <Label Content="{Binding Path=Name }"/>
+                        <Label Content="{Binding Name }"/>
                     </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

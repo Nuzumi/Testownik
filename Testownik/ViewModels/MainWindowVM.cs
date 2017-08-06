@@ -15,21 +15,32 @@ namespace Testownik.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
-        public ICommand ToBrowserCommand { get; set; }
-        public ICommand ToTestCommand { get; set; }
         public RWRepository<Model.Test> testRepo;
 
+        // properties start
+        public ICommand ToBrowserCommand { get; set; }
+        public ICommand ToTestCommand { get; set; }
+
         public ObservableCollection<Model.Test> TestList { get; set; }
+
         private Model.Test selectedTest;
         public Model.Test SelectedTest
         {
+            get{ return selectedTest;}
             set
             {
-                selectedTest = value;
+                SetProperty(ref selectedTest, value);
                 UpdateQuestionAmount();
             }
         }
-        public int SelectedTestQuestionAmount { get; set; }
+
+        private int selectedTestQuestionAmount;
+        public int SelectedTestQuestionAmount
+        {
+            get { return selectedTestQuestionAmount; }
+            set { SetProperty(ref selectedTestQuestionAmount, value); }
+        }
+        // properties end
 
         public MainWindowVM()
         {
@@ -41,17 +52,24 @@ namespace Testownik.ViewModels
 
         private void UpdateQuestionAmount()
         {
-            //zaimplemoentowac
+            SelectedTestQuestionAmount = 10;
         }
 
         //Commends Start
-
         private void ToBrowser(Window window)
         {
+            BaseQuestionBrowserVM dataContext;
+            if (SelectedTest != null)
+            {
+                dataContext = new BaseQuestionBrowserVM(SelectedTest.Ref);
+            }
+            else
+            {
+                dataContext = new BaseQuestionBrowserVM();
+            }
             BaseQuestionBrowser trybEdycji = new BaseQuestionBrowser();
-            BaseQuestionBrowserVM baseQuestionBrowserVm = new BaseQuestionBrowserVM();
             trybEdycji.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            trybEdycji.DataContext = baseQuestionBrowserVm;
+            trybEdycji.DataContext = dataContext;
             trybEdycji.Show();
             window.Close();
         }
@@ -65,7 +83,6 @@ namespace Testownik.ViewModels
             test.Show();
             window.Close();
         }
-
         //Commends End
     }
 }

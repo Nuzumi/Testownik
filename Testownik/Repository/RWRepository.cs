@@ -26,6 +26,7 @@ namespace Testownik.Repository
         {
             return context.Set<T>().Where(x => x.Ref == id).FirstOrDefault();
         }
+
         public void Create(T entity)
         {
             context.Set<T>().Add(entity);

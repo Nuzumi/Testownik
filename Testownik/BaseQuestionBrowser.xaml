@@ -44,13 +44,12 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="5" MinWidth="165" Margin="0,0,10,10" SelectionMode="Single">
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
+        <ListView Grid.RowSpan="5" MinWidth="165" Margin="0,0,10,10" SelectionMode="Single" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Grid.Row="5" Content="dodaj baze" Command="{Binding AddDatabaseCommand}"/>
         <Button Grid.Row="6" Content="wiecej opcji" Style="{StaticResource contextMenu}">
