@@ -7,18 +7,34 @@ using System.Threading.Tasks;
 
 namespace Testownik.Model
 {
-    public class Test
+    public class Test : Entity
     {
         public Test()
         {
             TestQuestions = new List<Question>();
         }
-
-        [Key]
-        public int Ref { get; set; }
+        
         public string Name { get; set; }
         public string Teacher { get; set; }
 
         public virtual ICollection<Question> TestQuestions { get; set; }
+
+        /// <summary>
+        /// Zwracana jest nazwa bazy
+        /// </summary>
+        /// <returns></returns>
+        public string ToString()
+        {
+            return Name;
+        }
+
+        /// <summary>
+        /// Funkcja zwraca ilosc pytan w bazie danych, badz 0 w przypadku ich braku
+        /// </summary>
+        /// <returns></returns>
+        public int getQuestionsAmount()
+        {
+            return TestQuestions.Count;
+        }
     }
 }

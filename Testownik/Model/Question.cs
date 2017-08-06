@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace Testownik.Model
 {
-    public class Question
+    public class Question : Entity
     {
         public Question()
         {
             QuestionAnswers = new List<Answer>();
         }
-
-        [Key]
-        public int Ref { get; set; }
 
         public int RefTest { get; set; }
         public virtual Test Test { get; set; }
@@ -25,5 +22,15 @@ namespace Testownik.Model
         public byte[] Photo { get; set; }
 
         public virtual ICollection<Answer> QuestionAnswers { get; set; }
+
+        /// <summary>
+        /// Zwracana jest tresc pytania
+        /// </summary>
+        /// <returns></returns>
+        public string ToString()
+        {
+            return Content;
+        }
+
     }
 }

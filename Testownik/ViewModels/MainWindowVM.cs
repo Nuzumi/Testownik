@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Testownik.Model;
+using Testownik.Repository;
 
 namespace Testownik.ViewModels
 {
@@ -15,14 +16,14 @@ namespace Testownik.ViewModels
     {
         public ICommand ToBrowserCommand { get; set; }
         public ICommand ToTestCommand { get; set; }
-        public static TestownikContext context;
+        public RWRepository<Model.Test> testRepo;
 
         public MainWindowVM()
         {
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest);
-            context = new TestownikContext();
-            MessageBox.Show(context.Tests.First().Name);
+            testRepo = new RWRepository<Model.Test>(new TestownikContext());
+            MessageBox.Show(testRepo.GetById(1).ToString());
         }
 
         private void ToBrowser(Window window)

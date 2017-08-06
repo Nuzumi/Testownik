@@ -106,9 +106,12 @@
       <DependentUpon>BaseQuestionBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Answer.cs" />
+    <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\TestownikContext.cs" />
+    <Compile Include="Repository\Interface\IRWRepository.cs" />
+    <Compile Include="Repository\RWRepository.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
@@ -176,9 +179,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

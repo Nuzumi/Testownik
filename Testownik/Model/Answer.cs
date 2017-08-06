@@ -7,13 +7,20 @@ using System.Threading.Tasks;
 
 namespace Testownik.Model
 {
-    public class Answer
+    public class Answer : Entity
     {
-        [Key]
-        public int Ref { get; set; }
         public int RefQuestion { get; set; }
         public virtual Question Question { get; set; }
         public string Content { get; set; }
         public bool Correct { get; set; }
+
+        /// <summary>
+        /// Zwraca tresc odpowiedzi
+        /// </summary>
+        /// <returns></returns>
+        public string ToString()
+        {
+            return Content;
+        }
     }
 }
