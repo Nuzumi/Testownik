@@ -17,7 +17,7 @@ namespace Testownik.Repository
             this.context = context;
         }
 
-        public IList<T> GetAll()
+        public List<T> GetAll()
         {
             return context.Set<T>().ToList();
         }

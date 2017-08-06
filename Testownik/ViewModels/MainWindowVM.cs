@@ -19,7 +19,7 @@ namespace Testownik.ViewModels
         public ICommand ToTestCommand { get; set; }
         public RWRepository<Model.Test> testRepo;
 
-        private ObservableCollection<Test> TestList;
+        public ObservableCollection<Model.Test> TestList { get; set; }
         private Model.Test selectedTest;
         public Model.Test SelectedTest
         {
@@ -36,7 +36,7 @@ namespace Testownik.ViewModels
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest);
             testRepo = new RWRepository<Model.Test>(new TestownikContext());
-            MessageBox.Show(testRepo.GetById(1).ToString());
+            TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
         }
 
         private void UpdateQuestionAmount()
