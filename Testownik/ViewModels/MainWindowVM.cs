@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,31 @@ namespace Testownik.ViewModels
         public ICommand ToTestCommand { get; set; }
         public static TestownikContext context;
 
+        private ObservableCollection<Test> TestList;
+        private Model.Test selectedTest;
+        public Model.Test SelectedTest
+        {
+            set
+            {
+                selectedTest = value;
+                UpdateQuestionAmount();
+            }
+        }
+        public int SelectedTestQuestionAmount { get; set; }
+
         public MainWindowVM()
         {
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest);
             context = new TestownikContext();
-            MessageBox.Show(context.Tests.First().Name);
         }
+
+        private void UpdateQuestionAmount()
+        {
+            //zaimplemoentowac
+        }
+
+        //Commends Start
 
         private void ToBrowser(Window window)
         {
@@ -44,5 +63,7 @@ namespace Testownik.ViewModels
             test.Show();
             window.Close();
         }
+
+        //Commends End
     }
 }
