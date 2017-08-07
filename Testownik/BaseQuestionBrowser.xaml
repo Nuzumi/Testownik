@@ -21,10 +21,13 @@
                     </EventTrigger.Actions>
                 </EventTrigger>
             </Style.Triggers>
-            <Setter Property="Margin" Value="10,3,10,3"/>
+            <Setter Property="Margin" Value="3,3,10,3"/>
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="10,3,10,3"/>
+            <Setter Property="Margin" Value="3,3,10,3"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Margin" Value="3,0,10,10"/>
         </Style>
     </Window.Resources>
     <Grid Margin="7">
@@ -44,7 +47,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="5" MinWidth="165" Margin="0,0,10,10" SelectionMode="Single" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}">
+        <ListView Grid.RowSpan="5" MinWidth="165" SelectionMode="Single" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding Name}"/>
@@ -62,13 +65,12 @@
             </Button.ContextMenu>
         </Button>
         <Button Grid.Row="7" Command="{Binding ToMainWindowCommand}" CommandParameter="{Binding ElementName=window}" Content="powrot"/>
-        <ListView Grid.Column="1" Grid.RowSpan="6" MinWidth="165" Margin="0,0,10,10" SelectionMode="Single">
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
+        <ListView Grid.Column="1" Grid.RowSpan="6" MinWidth="165" SelectionMode="Single" ItemsSource="{Binding QuestionList}" SelectedItem="{Binding SelectedQuestion}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding QuestionNo}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Grid.Column="1" Grid.Row="6" Command="{Binding ToAddQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="dodaj pytanie"/>
         <Button Grid.Column="1" Grid.Row="7" Content="wiecej opcji"  Style="{StaticResource contextMenu}">
@@ -80,18 +82,20 @@
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
-        <Label Grid.Column="2" Margin="10,0,10,5">pytanie</Label>
-        <TextBlock Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap"  Margin="10,0,10,0" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed dolor viverra, vestibulum sapien sit amet, aliquet nulla. Fusce ullamcorper, leo eu accumsan semper, ligula est tempor lacus, eu pellentesque velit mauris vitae tellus. Phasellus sit amet nibh interdum, pulvinar massa vel, pharetra nibh."/>
-        <CheckBox Grid.Column="2" Grid.Row="2" Name="hasImage" Content="posiada obrazek" IsEnabled="False" IsChecked="False" Margin="0,10,0,10"/>
-        <Button Grid.Column="3" Grid.Row="2" Content="pokaz" IsEnabled="{Binding Path=IsChecked, ElementName=hasImage}"/>
-        <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2">odpowiedzi</Label>
-        <ListView Grid.Column="2" Grid.Row="4" Margin="0,10,10,10" Grid.ColumnSpan="2" Grid.RowSpan="3">
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
-            <Label>content    f</Label>
+        <Label Grid.Column="2" Margin="5,0,10,5">pytanie</Label>
+        <TextBlock Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" TextWrapping="Wrap"  Margin="10,0,10,0" Text="{Binding SelectedQuestion, Converter={StaticResource QuestionToTextConverter}}"/>
+        <CheckBox Grid.Column="2" Grid.Row="2" Name="hasImage" Content="posiada obrazek" IsEnabled="False" IsChecked="{Binding HasQuestionPicture}" Margin="7,10,0,10"/>
+        <Button Grid.Column="3" Grid.Row="2" Content="pokaz" IsEnabled="{Binding Path=IsChecked, ElementName=hasImage}" Margin="13,5,13,5"/>
+        <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="7,0,0,0">odpowiedzi</Label>
+        <ListView Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding AnswereList}" HorizontalContentAlignment="Stretch" Name="answerListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Margin="0,3">
+                        <CheckBox IsEnabled="False" IsChecked="{Binding Correct}" DockPanel.Dock="Right" Margin="6,0,0,0"/>
+                        <TextBlock Text="{Binding Content}" FontSize="12" TextTrimming="CharacterEllipsis" Width="{Binding Path=ActualWidth ,ElementName=answerListView, Converter={StaticResource SubtractConverter}, ConverterParameter=@VALUE-36}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Command="{Binding ToAddQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="edytuj pytanie"/>
     </Grid>

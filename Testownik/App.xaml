@@ -2,9 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Testownik"
+             xmlns:converters="clr-namespace:Testownik.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:SubtractConverter x:Key="SubtractConverter"/>
+        <converters:QuestionToTextConverter x:Key="QuestionToTextConverter"/>
     </Application.Resources>
     
 </Application>
