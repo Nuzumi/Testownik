@@ -106,6 +106,7 @@
     <Compile Include="BaseQuestionBrowser.xaml.cs">
       <DependentUpon>BaseQuestionBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\Test.cs" />

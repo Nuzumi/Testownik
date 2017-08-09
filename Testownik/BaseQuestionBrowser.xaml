@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Testownik"
+        xmlns:helper="clr-namespace:Testownik.Helpers"
         mc:Ignorable="d"
         Title="TrybEdycji" Height="540" Width="740" x:Name="window">
     <Window.Resources>
@@ -47,10 +48,20 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="5" MinWidth="165" SelectionMode="Single" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}">
+        <ListView Grid.RowSpan="5" MinWidth="165" SelectionMode="Single" ItemsSource="{Binding TestList}" SelectedItem="{Binding SelectedTest}" HorizontalContentAlignment="Stretch">
+            <ListView.Resources>
+                <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            </ListView.Resources>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}"/>
+                    <DockPanel>
+                        <DockPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="usuń baze" Command="{Binding Data.DeleteDatabaseCommand, Source={StaticResource proxy}}" />
+                            </ContextMenu>
+                        </DockPanel.ContextMenu>
+                        <Label Content="{Binding Name}"/>
+                    </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

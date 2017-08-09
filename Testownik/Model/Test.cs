@@ -23,7 +23,7 @@ namespace Testownik.Model
         /// Zwracana jest nazwa bazy
         /// </summary>
         /// <returns></returns>
-        public string ToString()
+        override public string ToString()
         {
             return Name;
         }

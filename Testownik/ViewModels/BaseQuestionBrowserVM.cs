@@ -19,15 +19,23 @@ namespace Testownik.ViewModels
         public bool CanOpenAddDatabaseDialogWindow = true;
         public RWRepository<Model.Test> testRepo;
         public RWRepository<Question> questionRepo;
+        public RWRepository<Answer> answerRepo;
 
         // properties start
         public ICommand ToMainWindowCommand { get; set; }
         public ICommand ToAddQuestionCommand { get; set; }
         public ICommand ToEditQuestionCommand { get; set; }
         public ICommand AddDatabaseCommand { get; set; }
+        public ICommand DeleteDatabaseCommand { get; set; }
 
-        public ObservableCollection<Model.Test> TestList { get; set; }
         public byte[] QuestionImage { get; set; }
+
+        private ObservableCollection<Model.Test> testList;
+        public ObservableCollection<Model.Test> TestList
+        {
+            get { return testList; }
+            set { SetProperty(ref testList, value); }
+        }
 
         private ObservableCollection<Question> questionList;
         public ObservableCollection<Question> QuestionList
@@ -91,10 +99,11 @@ namespace Testownik.ViewModels
             ToAddQuestionCommand = new DelegateCommand<Window>(ToAddQuestion);
             ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);//dodac canExecute jak bedzi juz pole z id
             AddDatabaseCommand = new DelegateCommand(AddDatabase, CanAddDatabase);
+            DeleteDatabaseCommand = new DelegateCommand(DeleteDatabase);
             testRepo = new RWRepository<Model.Test>(new TestownikContext());
             questionRepo = new RWRepository<Question>(new TestownikContext());
+            answerRepo = new RWRepository<Answer>(new TestownikContext());
             TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
-            TestList.Add(new Model.Test { Name = "test2" ,Ref = 2});
         }
 
         private void questionListUpdate()
@@ -127,16 +136,20 @@ namespace Testownik.ViewModels
 
         private void PictureUpdate()
         {
-            if(SelectedQuestion.Photo != null)
+            if (selectedQuestion != null)
             {
-                HasQuestionPicture = true;
-                QuestionImage = SelectedQuestion.Photo;
-            }
-            else
-            {
-                HasQuestionPicture = false;
+                if (SelectedQuestion.Photo != null)
+                {
+                    HasQuestionPicture = true;
+                    QuestionImage = SelectedQuestion.Photo;
+                }
+                else
+                {
+                    HasQuestionPicture = false;
+                }
             }
         }
+
 
         //Command start
         private void ToMainWindow(Window window)
@@ -179,6 +192,13 @@ namespace Testownik.ViewModels
         private bool CanAddDatabase()
         {
             return CanOpenAddDatabaseDialogWindow;
+        }
+
+        private void DeleteDatabase()
+        {
+            //jeszcze trzeba usunac kaskadowo wszystko ale wywala wyjatek ze nie ma takiej kolumny
+            testRepo.Delete(SelectedTest);
+            TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
         }
         //Commands end
     }
