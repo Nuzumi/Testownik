@@ -16,7 +16,6 @@ namespace Testownik.ViewModels
     public class MainWindowVM : BindableBase
     {
         public RWRepository<Model.Test> testRepo;
-        public TestRepository repo;
 
         // properties start
         public ICommand ToBrowserCommand { get; set; }

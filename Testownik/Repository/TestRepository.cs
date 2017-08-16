@@ -10,13 +10,11 @@ namespace Testownik.Repository
 {
     public class TestRepository
     {
-
         private readonly TestownikContext context;
 
         public TestRepository(TestownikContext context)
         {
             this.context = context;
-
         }
 
         public List<Model.Test> GetAllTests()
