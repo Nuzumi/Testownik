@@ -27,7 +27,14 @@ namespace Testownik.Model
         {
             return Name;
         }
-        
 
+        /// <summary>
+        /// Funkcja zwraca ilosc pytan w bazie danych, badz 0 w przypadku ich braku
+        /// </summary>
+        /// <returns></returns>
+        public int getQuestionsAmount()
+        {
+            return TestQuestions.Count;
+        }
     }
 }

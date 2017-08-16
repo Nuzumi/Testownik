@@ -25,18 +25,28 @@ namespace Testownik.ViewModels
         public ICommand ToMainWindowCommand { get; set; }
         public ICommand ToEditQuestionCommand { get; set; }
         public ICommand NextQuestionCommand { get; set; }
-        public ICommand ChceckAnswersCommand { get; set; }
+        public ICommand CheckAnswersCommand { get; set; }
+
+        private Question actualQuestion;
+        public Question ActualQuestion
+        {
+            get { return actualQuestion; }
+            set { SetProperty(ref actualQuestion, value); }
+        }
         //properties end
 
         public TestVM(Model.Test test, int repetitionAtStart, int repetitionAftherBadAnswer, int questionAmountAtOnce)
         {
             ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
             ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);
+            NextQuestionCommand = new DelegateCommand(NextQuestion);
+            CheckAnswersCommand = new DelegateCommand(CheckAnswers);
 
             testRepository = new TestRepository(new TestownikContext());
             this.repetitionAftherBadAnswer = repetitionAftherBadAnswer;
             this.questionAmountAtOnce = questionAmountAtOnce;
             questionList = prepareQuestions(test, repetitionAtStart);
+            questionListToUse = takeXRandomQuestions(questionAmountAtOnce);
         }
 
         private List<Tuple<Question, int>> prepareQuestions(Model.Test test, int repetition)
@@ -102,6 +112,16 @@ namespace Testownik.ViewModels
             addEdit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             addEdit.Show();
             window.Close();
+        }
+
+        private void NextQuestion()
+        {
+
+        }
+
+        private void CheckAnswers()
+        {
+
         }
         //command end
     }

@@ -23,8 +23,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="15">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed dolor viverra, vestibulum sapien sit amet, aliquet nulla. Fusce ullamcorper, leo eu accumsan semper, ligula est tempor lacus, eu pellentesque velit mauris vitae tellus. Phasellus sit amet nibh interdum, pulvinar massa vel, pharetra nibh.
+        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="15" Text="{Binding ActualQuestion, Converter= {StaticResource QuestionToTextConverter}}">
         </TextBlock>
         <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="15" SelectionMode="Multiple">
             <ListView.ItemTemplate>
