@@ -114,6 +114,7 @@
     <Compile Include="Model\TestownikContext.cs" />
     <Compile Include="Repository\Interface\IRWRepository.cs" />
     <Compile Include="Repository\RWRepository.cs" />
+    <Compile Include="Repository\TestRepository.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>

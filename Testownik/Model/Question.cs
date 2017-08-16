@@ -21,7 +21,7 @@ namespace Testownik.Model
         public string Content { get; set; }
         public byte[] Photo { get; set; }
 
-        public virtual ICollection<Answer> QuestionAnswers { get; set; }
+        public virtual IList<Answer> QuestionAnswers { get; set; }
 
         /// <summary>
         /// Zwracana jest tresc pytania

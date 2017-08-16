@@ -17,7 +17,7 @@ namespace Testownik.Model
         public string Name { get; set; }
         public string Teacher { get; set; }
 
-        public virtual ICollection<Question> TestQuestions { get; set; }
+        public virtual IList<Question> TestQuestions { get; set; }
 
         /// <summary>
         /// Zwracana jest nazwa bazy
@@ -27,14 +27,7 @@ namespace Testownik.Model
         {
             return Name;
         }
+        
 
-        /// <summary>
-        /// Funkcja zwraca ilosc pytan w bazie danych, badz 0 w przypadku ich braku
-        /// </summary>
-        /// <returns></returns>
-        public int getQuestionsAmount()
-        {
-            return TestQuestions.Count;
-        }
     }
 }
