@@ -32,6 +32,7 @@ namespace Testownik.ViewModels
             {
                 SetProperty(ref selectedTest, value);
                 UpdateQuestionAmount();
+                (ToTestCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
@@ -41,12 +42,33 @@ namespace Testownik.ViewModels
             get { return selectedTestQuestionAmount; }
             set { SetProperty(ref selectedTestQuestionAmount, value); }
         }
+
+        private int questionRepetitionOnStart;
+        public int QuestionRepetitionOnStart
+        {
+            get { return questionRepetitionOnStart; }
+            set { SetProperty(ref questionRepetitionOnStart, value); }
+        }
+
+        private int questionRepetitionAftherBadAnswer;
+        public int QuestionRepetitionAftherBadAnswer
+        {
+            get { return questionRepetitionAftherBadAnswer; }
+            set { SetProperty(ref questionRepetitionAftherBadAnswer, value); }
+        }
+
+        private int questionRepetitionAtOnce;
+        public int QuestionRepetitionAtOnce
+        {
+            get { return questionRepetitionAtOnce; }
+            set { SetProperty(ref questionRepetitionAtOnce, value); }
+        }
         // properties end
 
         public MainWindowVM()
         {
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
-            ToTestCommand = new DelegateCommand<Window>(ToTest);
+            ToTestCommand = new DelegateCommand<Window>(ToTest,CanGoToTest);
             testRepo = new RWRepository<Model.Test>(new TestownikContext());
             TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
             repo = new TestRepository(new TestownikContext());
@@ -82,11 +104,23 @@ namespace Testownik.ViewModels
         private void ToTest(Window window)
         {
             Test test = new Test();
-            TestVM testVM = new TestVM();
+            TestVM testVM = new TestVM(SelectedTest,QuestionRepetitionOnStart,QuestionRepetitionAftherBadAnswer,QuestionRepetitionAtOnce);
             test.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             test.DataContext = testVM;
             test.Show();
             window.Close();
+        }
+
+        private bool CanGoToTest(Window dummyWindow)
+        {
+            if(SelectedTest != null)
+            {
+                if(SelectedTest is Model.Test)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Commends End
     }
