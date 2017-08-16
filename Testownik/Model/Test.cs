@@ -17,7 +17,7 @@ namespace Testownik.Model
         public string Name { get; set; }
         public string Teacher { get; set; }
 
-        public virtual ICollection<Question> TestQuestions { get; set; }
+        public virtual IList<Question> TestQuestions { get; set; }
 
         /// <summary>
         /// Zwracana jest nazwa bazy

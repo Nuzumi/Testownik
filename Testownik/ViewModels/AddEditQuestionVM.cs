@@ -39,10 +39,10 @@ namespace Testownik.ViewModels
                     backWindow.DataContext = dataContextB;
                     break;
 
-                case WindowsTypes.Test:
+                case WindowsTypes.Test:/*
                     backWindow = new Test();
                     TestVM dataContextT = new TestVM();
-                    backWindow.DataContext = dataContextT;
+                    backWindow.DataContext = dataContextT;*/
                     break;
             }
 
