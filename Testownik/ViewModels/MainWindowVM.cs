@@ -73,7 +73,7 @@ namespace Testownik.ViewModels
             TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
             repo = new TestRepository(new TestownikContext());
 
-            MessageBox.Show("Keke" + repo.GetTestById(0));
+            MessageBox.Show("Keke" + repo.GetTestById(1));
 
         }
 

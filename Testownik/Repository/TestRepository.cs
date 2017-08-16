@@ -21,12 +21,12 @@ namespace Testownik.Repository
 
         public List<Model.Test> GetAllTests()
         {
-            return context.Set<Model.Test>().Include(t => t.TestQuestions).ToList();
+            return (from a in context.Tests select a).ToList();
         }
 
         public Model.Test GetTestById(int id)
         {
-            return context.Set<Model.Test>().Where(x => x.Ref == id).Include(t => t.TestQuestions).FirstOrDefault();
+            return GetAllTests().FirstOrDefault(a => a.Ref.Equals(id));
         }
 
         public void CreateTest(Model.Test test)

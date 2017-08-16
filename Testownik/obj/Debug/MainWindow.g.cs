@@ -50,7 +50,7 @@ namespace Testownik {
         #line hidden
         
         
-        #line 52 "..\..\MainWindow.xaml"
+        #line 54 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Slider slider1;
         
@@ -58,7 +58,7 @@ namespace Testownik {
         #line hidden
         
         
-        #line 59 "..\..\MainWindow.xaml"
+        #line 61 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Slider slider2;
         
@@ -66,7 +66,7 @@ namespace Testownik {
         #line hidden
         
         
-        #line 66 "..\..\MainWindow.xaml"
+        #line 68 "..\..\MainWindow.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Slider slider3;
         
