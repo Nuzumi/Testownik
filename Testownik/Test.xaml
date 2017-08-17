@@ -23,9 +23,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="15" Text="{Binding ActualQuestion, Converter= {StaticResource QuestionToTextConverter}}">
+        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="15"  Text="{Binding ActualQuestion, Converter= {StaticResource QuestionToTextConverter}}">
         </TextBlock>
-        <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="15" SelectionMode="Multiple">
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="15" SelectionMode="Multiple" Name="answersList">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Tekst}" Margin="10"/>
@@ -36,7 +36,7 @@
         <Image Grid.Column="3" Grid.Row="1" />
         <Button Grid.Row="3" Command="{Binding ToMainWindowCommand}" CommandParameter="{Binding ElementName=window}" Content="powrot"/>
         <Button Grid.Row="3" Grid.Column="1" Command="{Binding ToEditQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="edytuj"/>
-        <Button Grid.Row="3" Grid.Column="2" Content="sprawdz"/>
-        <Button Grid.Row="3" Grid.Column="3" Content="dalej"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="sprawdz" CommandParameter="{Binding ElementName=answersList,Path=SelectedItems}" Command="{Binding CheckAnswersCommand}"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="dalej" Command="{Binding NextQuestionCommand}"/>
     </Grid>
 </Window>

@@ -15,7 +15,7 @@ namespace Testownik.ViewModels
 {
     public class MainWindowVM : BindableBase
     {
-        public TestRepository repo;
+        private TestRepository repo;
 
         // properties start
         public ICommand ToBrowserCommand { get; set; }
@@ -70,7 +70,6 @@ namespace Testownik.ViewModels
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest,CanGoToTest);
             TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
-
         }
 
         private void UpdateQuestionAmount()
