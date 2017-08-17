@@ -26,5 +26,6 @@ namespace Testownik.Model
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
+
     }
 }

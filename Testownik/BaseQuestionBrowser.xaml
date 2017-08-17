@@ -98,7 +98,7 @@
         <CheckBox Grid.Column="2" Grid.Row="2" Name="hasImage" Content="posiada obrazek" IsEnabled="False" IsChecked="{Binding HasQuestionPicture}" Margin="7,10,0,10"/>
         <Button Grid.Column="3" Grid.Row="2" Content="pokaz" IsEnabled="{Binding Path=IsChecked, ElementName=hasImage}" Margin="13,5,13,5"/>
         <Label Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="7,0,0,0">odpowiedzi</Label>
-        <ListView Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding AnswereList}" HorizontalContentAlignment="Stretch" Name="answerListView">
+        <ListView Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="3" ItemsSource="{Binding AnswerList}" HorizontalContentAlignment="Stretch" Name="answerListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Margin="0,3">

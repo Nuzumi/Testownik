@@ -22,14 +22,14 @@ namespace Testownik.ViewModels
         public ICommand CancleCommand { get; set; }
 
         private BaseQuestionBrowserVM previousWindow;
-        public RWRepository<Model.Test> testRepo;
+        public TestRepository repo;
 
         public AddDatabaseDialogVM(BaseQuestionBrowserVM previousWindow)
         {
             OkCommand = new DelegateCommand<Window>(OkPress);
             CancleCommand = new DelegateCommand<Window>(CanclePress);
             this.previousWindow = previousWindow;
-            testRepo = new RWRepository<Model.Test>(new TestownikContext());
+            repo = new TestRepository(new TestownikContext());
         }
 
         private void OkPress(Window window)
@@ -38,14 +38,14 @@ namespace Testownik.ViewModels
             {
                 if (!string.IsNullOrEmpty(DatabaseTeacherName))
                 {
-                    testRepo.Create(new Model.Test { Name = DatabaseName, Teacher = DatabaseTeacherName });
+                    repo.CreateTest(new Model.Test { Name = DatabaseName, Teacher = DatabaseTeacherName });
                 }
                 else
                 {
-                    testRepo.Create(new Model.Test { Name = DatabaseName});
+                    repo.CreateTest(new Model.Test { Name = DatabaseName});
                 }
                 previousWindow.CanOpenAddDatabaseDialogWindow = true;
-                previousWindow.TestList = new System.Collections.ObjectModel.ObservableCollection<Model.Test>(testRepo.GetAll());
+                previousWindow.TestList = new System.Collections.ObjectModel.ObservableCollection<Model.Test>(repo.GetAllTests());
                 window.Close();
             }
             else

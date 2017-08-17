@@ -16,6 +16,7 @@ namespace Testownik.Model
         
         public string Name { get; set; }
         public string Teacher { get; set; }
+        public int QuestionsCount { get; set; }
 
         public virtual IList<Question> TestQuestions { get; set; }
 

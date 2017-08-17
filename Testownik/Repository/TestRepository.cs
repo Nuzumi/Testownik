@@ -49,12 +49,12 @@ namespace Testownik.Repository
 
         public List<Question> GetAllQuestions()
         {
-            return context.Set<Question>().Include(t => t.QuestionAnswers).ToList();
+            return (from a in context.Questions select a).ToList();
         }
 
         public Question GetQuestionById(int id)
         {
-            return context.Set<Question>().Where(x => x.Ref == id).Include(t => t.QuestionAnswers).FirstOrDefault();
+            return GetAllQuestions().FirstOrDefault(a => a.Ref.Equals(id));
         }
 
         public void CreateQuestion(Question question)
@@ -78,12 +78,12 @@ namespace Testownik.Repository
 
         public List<Answer> GetAllAnswers()
         {
-            return context.Set<Answer>().ToList();
+            return (from a in context.Answers select a).ToList();
         }
 
         public Answer GetAnswerById(int id)
         {
-            return context.Set<Answer>().Where(x => x.Ref == id).FirstOrDefault();
+            return GetAllAnswers().FirstOrDefault(a => a.Ref.Equals(id));
         }
 
         public void CreateAnswer(Answer answer)
@@ -103,12 +103,15 @@ namespace Testownik.Repository
             context.Entry<Answer>(answer).CurrentValues.SetValues(answer);
             context.SaveChanges();
         }
-
-        public List<Question> GetQuestionsForTest(int id)
+        
+        public List<Question> GetQuestionsForTest(int testId)
         {
-            var test = context.Tests.Where(p => p.Ref == id).Include(p => p.TestQuestions).FirstOrDefault();
+            return GetAllQuestions().Where(q => q.RefTest.Equals(testId)).ToList();
+        }
 
-            return test.TestQuestions.ToList();
+        internal List<Answer> GetAnswersForQuestions(int questionId)
+        {
+            return GetAllAnswers().Where(q => q.RefQuestion.Equals(questionId)).ToList();
         }
     }
 }

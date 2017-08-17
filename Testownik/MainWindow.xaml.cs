@@ -25,5 +25,6 @@ namespace Testownik
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
+        
     }
 }

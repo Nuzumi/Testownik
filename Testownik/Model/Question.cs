@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace Testownik.Model
             QuestionAnswers = new List<Answer>();
         }
 
+        
         public int RefTest { get; set; }
+        [ForeignKey("RefTest")]
         public virtual Test Test { get; set; }
 
         public int QuestionNo { get; set; }

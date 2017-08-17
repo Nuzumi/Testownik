@@ -25,7 +25,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
-                        <Label Content="{Binding Ref}" DockPanel.Dock="Right"/>
+                        <Label Content="{Binding QuestionsCount}" DockPanel.Dock="Right"/>
                         <Label Content="ilosc pytan: " DockPanel.Dock="Right"/>
                         <Label Content="{Binding Name }"/>
                     </DockPanel>

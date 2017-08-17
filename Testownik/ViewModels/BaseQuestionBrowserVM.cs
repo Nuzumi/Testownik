@@ -17,9 +17,7 @@ namespace Testownik.ViewModels
     class BaseQuestionBrowserVM : BindableBase
     {
         public bool CanOpenAddDatabaseDialogWindow = true;
-        public RWRepository<Model.Test> testRepo;
-        public RWRepository<Question> questionRepo;
-        public RWRepository<Answer> answerRepo;
+        public TestRepository repo;
 
         // properties start
         public ICommand ToMainWindowCommand { get; set; }
@@ -45,7 +43,7 @@ namespace Testownik.ViewModels
         }
 
         private ObservableCollection<Answer> answerList;
-        public ObservableCollection<Answer> AnswereList
+        public ObservableCollection<Answer> AnswerList
         {
             get { return answerList; }
             set { SetProperty(ref answerList, value); }
@@ -90,7 +88,7 @@ namespace Testownik.ViewModels
         public BaseQuestionBrowserVM(int selectedTestId)
         {
             prepare();
-            SelectedTest = testRepo.GetById(selectedTestId);
+            SelectedTest = repo.GetTestById(selectedTestId);
         }
 
         public void prepare()
@@ -100,29 +98,29 @@ namespace Testownik.ViewModels
             ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);//dodac canExecute jak bedzi juz pole z id
             AddDatabaseCommand = new DelegateCommand(AddDatabase, CanAddDatabase);
             DeleteDatabaseCommand = new DelegateCommand(DeleteDatabase);
-            testRepo = new RWRepository<Model.Test>(new TestownikContext());
-            questionRepo = new RWRepository<Question>(new TestownikContext());
-            answerRepo = new RWRepository<Answer>(new TestownikContext());
-            TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
+            repo = new TestRepository(new TestownikContext());
+            TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
         }
 
         private void questionListUpdate()
         {
             // QuestionList = QuestionRepo pytania do danego testu
-            var tmp = new ObservableCollection<Question>()
+            /*var tmp = new ObservableCollection<Question>()
             {
                 new Question {QuestionNo = 1, Content= "pytanie 1"},
                 new Question {QuestionNo = 2, Content= "pytanie 2"},
                 new Question {QuestionNo = 3, Content= "pytanie 3",Photo = new byte[] {1,2}},
                 new Question {QuestionNo = 4, Content= "pytanie 4"}
             };
-            QuestionList = tmp;//tymczasowo
+            QuestionList = tmp;//tymczasowo*/
+
+            QuestionList = new ObservableCollection<Question>(repo.GetQuestionsForTest(selectedTest.Ref));
         }
 
         private void answerListUpdate()
         {
             // AnswereList = odpowiedzi do danego pytania
-            var tmp = new ObservableCollection<Answer>()
+            /*var tmp = new ObservableCollection<Answer>()
             {
                 new Answer {Content="odpowiedz 1 bardzo dluga bardzo dluga bardzo dluga bardzo dluga bardzo dluga", Correct = true },
                 new Answer {Content="odpowiedz 2", Correct = false },
@@ -131,7 +129,8 @@ namespace Testownik.ViewModels
                 new Answer {Content="odpowiedz 5", Correct = false },
                 new Answer {Content="odpowiedz 6", Correct = false }
             };
-            AnswereList = tmp;//tymczasowo
+            AnswereList = tmp;//tymczasowo*/
+            AnswerList = new ObservableCollection<Answer>(repo.GetAnswersForQuestions(selectedQuestion.Ref));
         }
 
         private void PictureUpdate()
@@ -197,8 +196,8 @@ namespace Testownik.ViewModels
         private void DeleteDatabase()
         {
             //jeszcze trzeba usunac kaskadowo wszystko ale wywala wyjatek ze nie ma takiej kolumny
-            testRepo.Delete(SelectedTest);
-            TestList = new ObservableCollection<Model.Test>(testRepo.GetAll());
+            repo.DeleteTest(SelectedTest);
+            TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
         }
         //Commands end
     }
