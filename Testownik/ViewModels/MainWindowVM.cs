@@ -74,7 +74,7 @@ namespace Testownik.ViewModels
 
         private void UpdateQuestionAmount()
         {
-            SelectedTestQuestionAmount = 10;
+            SelectedTestQuestionAmount = SelectedTest.getQuestionsAmount();
         }
 
         //Commends Start
@@ -112,7 +112,10 @@ namespace Testownik.ViewModels
             {
                 if(SelectedTest is Model.Test)
                 {
-                    return true;
+                    if (SelectedTest.getQuestionsAmount() > 0)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
