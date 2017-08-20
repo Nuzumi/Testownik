@@ -64,6 +64,41 @@ namespace Testownik.ViewModels
             get { return answer; }
             set { SetProperty(ref answer, value); }
         }
+
+        private string answerText;
+        public string AnswerText
+        {
+            get { return answerText; }
+            set { SetProperty(ref answerText, value); }
+        }
+
+        private int goodAnswersCount;
+        public int GoodAnswersCount
+        {
+            get { return goodAnswersCount; }
+            set { SetProperty(ref goodAnswersCount, value); }
+        }
+
+        private int badAnswersCount;
+        public int BadAnswersCount
+        {
+            get { return badAnswersCount; }
+            set { SetProperty(ref badAnswersCount, value); }
+        }
+
+        private int questionCount;
+        public int QuestionCount
+        {
+            get { return questionCount; }
+            set { SetProperty(ref questionCount, value); }
+        }
+
+        private int lernedQuestionCount;
+        public int LernedQuestionCount
+        {
+            get { return lernedQuestionCount; }
+            set { SetProperty(ref lernedQuestionCount, value); }
+        }
         //properties end
 
         public TestVM(Model.Test test, int repetitionAtStart, int repetitionAftherBadAnswer, int questionAmountAtOnce)
@@ -73,10 +108,14 @@ namespace Testownik.ViewModels
             NextQuestionCommand = new DelegateCommand(NextQuestion,CanNextQuestion);
             CheckAnswersCommand = new DelegateCommand<object>(CheckAnswers,CanCheckAnswers);
 
+            AnswerText = "";
+
             testRepository = new TestRepository(new TestownikContext());
             this.repetitionAftherBadAnswer = repetitionAftherBadAnswer;
             this.questionAmountAtOnce = questionAmountAtOnce;
             questionList = prepareQuestions(test, repetitionAtStart);
+            QuestionCount = questionList.Count;
+            LernedQuestionCount = 0;
             questionListToUse = takeXRandomQuestions(questionAmountAtOnce);
             takeRandomActualQuestion();
         }
@@ -96,33 +135,49 @@ namespace Testownik.ViewModels
         {
             Random rand = new Random();
             List<Tuple<Question, int>> value = new List<Tuple<Question, int>>();
-            for (int i =0; i < X || questionList.Count != 0; i++)
+            for (int i =0; i < X; i++)
             {
-                var question = questionList[rand.Next(questionList.Count - 1)];
+                var question = questionList[rand.Next(questionList.Count)];
                 questionList.Remove(question);
                 value.Add(question);
             }
             return value;
         }
 
-        private Tuple<Question, int> takeRandomQuestion()
+        private void takeRandomQuestion()
         {
-            Random rand = new Random();
-            var question = questionList[rand.Next(questionList.Count - 1)];
-            questionList.Remove(question);
-            return question;
+            if(questionList.Count !=0)
+            {
+                Random rand = new Random();
+                var question = questionList[rand.Next(questionList.Count - 1)];
+                questionList.Remove(question);
+                questionListToUse.Add(question);
+            }
         }
 
         private void takeRandomActualQuestion()
         {
             Random rand = new Random();
-            var question = questionListToUse[rand.Next(questionListToUse.Count - 1)];
-            questionList.Remove(question);
+            var question = questionListToUse[rand.Next(questionListToUse.Count)];
+            questionListToUse.Remove(question);
             ActualQuestion = question.Item1;
             ActualQuestionRepetition = question.Item2;
-            ActualQuestionAnswersList = testRepository.GetAnswersForQuestions(ActualQuestion.Ref);
-            //CountOfActualQuestionRightAnswers = uzupelnic
+            takeActuaQuestionAnswerList(testRepository.GetAnswersForQuestions(ActualQuestion.Ref));
         }
+
+        private void takeActuaQuestionAnswerList(List<Answer> answerList)
+        {
+            Random rand = new Random();
+            var result = new List<Answer>();
+            while (answerList.Count != 0)
+            {
+                var answ = answerList[rand.Next(answerList.Count)];
+                answerList.Remove(answ);
+                result.Add(answ);
+            }
+            ActualQuestionAnswersList = result;
+        }
+
         //command start
         private void ToMainWindow(Window window)
         {
@@ -144,10 +199,40 @@ namespace Testownik.ViewModels
 
         private void NextQuestion()
         {
+            AnswerText = "";
             WasActualQuestionChcecked = false;
             wasNextQuestion = true;
             (NextQuestionCommand as DelegateCommand).RaiseCanExecuteChanged();
             (CheckAnswersCommand as DelegateCommand<object>).RaiseCanExecuteChanged();
+
+            var tmpQuestion = new Tuple<Question, int>(ActualQuestion, ActualQuestionRepetition);
+
+            if(questionListToUse.Count != 0)
+            {
+                takeRandomActualQuestion();
+                if (tmpQuestion.Item2 != 0)
+                {
+                    questionListToUse.Add(tmpQuestion);
+                }
+                else
+                {
+                    takeRandomQuestion();
+                }
+            }
+            else
+            {
+                if (tmpQuestion.Item2 != 0)
+                {
+                    questionListToUse.Add(tmpQuestion);
+                }
+                else
+                {
+                    //koniec testu nauczony
+                }
+                takeRandomActualQuestion();
+            }
+
+            
         }
 
         private bool CanNextQuestion()
@@ -157,7 +242,6 @@ namespace Testownik.ViewModels
 
         private void CheckAnswers(object answersList)
         {
-            Answer = null;
             WasActualQuestionChcecked = true;
             wasNextQuestion = false;
             (NextQuestionCommand as DelegateCommand).RaiseCanExecuteChanged();
@@ -165,7 +249,53 @@ namespace Testownik.ViewModels
 
             System.Collections.IList items = (System.Collections.IList)answersList;
             var list = items.Cast<Answer>();
+  
+            List<Answer> positiveSelected = new List<Answer>();
+            foreach(Answer a in list)
+            {
+                if (a.Correct)
+                {
+                    positiveSelected.Add(a);
+                }
+            }
 
+            List<Answer> positiveAnswers = new List<Answer>();
+            foreach(Answer a in ActualQuestionAnswersList)
+            {
+                if (a.Correct)
+                {
+                    positiveAnswers.Add(a);
+                }
+            }
+
+            if(positiveSelected.Count() == list.Count())
+            {
+                if(positiveSelected.Count() == positiveAnswers.Count())
+                {
+                    AnswerText = "OK";
+                    ActualQuestionRepetition--;
+                    if(ActualQuestionRepetition == 0)
+                    {
+                        LernedQuestionCount++;
+                    }
+                    GoodAnswersCount++;
+                }
+                else
+                {
+                    AnswerText = "BAD";
+                    ActualQuestionRepetition += repetitionAftherBadAnswer;
+                    BadAnswersCount++;
+                }
+                
+            }
+            else
+            {
+                AnswerText = "BAD";
+                ActualQuestionRepetition += repetitionAftherBadAnswer;
+                BadAnswersCount++;
+            }
+
+            Answer = null;
         }
 
         private bool CanCheckAnswers(object dummyObject)

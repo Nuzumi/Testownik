@@ -70,11 +70,16 @@ namespace Testownik.ViewModels
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest,CanGoToTest);
             TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
+
+            QuestionRepetitionAftherBadAnswer = 2;
+            QuestionRepetitionOnStart = 3;
+            
         }
 
         private void UpdateQuestionAmount()
         {
             SelectedTestQuestionAmount = SelectedTest.getQuestionsAmount();
+            QuestionRepetitionAtOnce = SelectedTestQuestionAmount;
         }
 
         //Commends Start

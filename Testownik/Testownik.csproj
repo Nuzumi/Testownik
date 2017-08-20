@@ -106,6 +106,9 @@
     <Compile Include="BaseQuestionBrowser.xaml.cs">
       <DependentUpon>BaseQuestionBrowser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FinishedTest.xaml.cs">
+      <DependentUpon>FinishedTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Entity.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="ViewModels\AddDatabaseDialogVM.cs" />
     <Compile Include="ViewModels\AddEditQuestionVM.cs" />
     <Compile Include="ViewModels\BaseQuestionBrowserVM.cs" />
+    <Compile Include="ViewModels\FinishedTestVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\TestVM.cs" />
     <Page Include="AddDatabaseDialogWindow.xaml">
@@ -127,6 +131,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEditQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FinishedTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

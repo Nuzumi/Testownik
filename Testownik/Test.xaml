@@ -57,10 +57,38 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <Image Grid.Column="2" Grid.ColumnSpan="2" />
-        <Image Grid.Column="3" Grid.Row="1" />
+        <Grid Grid.Column="3" Grid.Row="1" Margin="2,5,2,5">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="2,4,2,4"/>
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="Margin" Value="0,4,0,0"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.ColumnSpan="2" Content="{Binding AnswerText}" />
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="poprawne odpowiedzi"/>
+            <Label  Grid.Row="1" Grid.Column="1" Content="{Binding GoodAnswersCount}"/>
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="bledne odpowiedzi"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding BadAnswersCount}"/>
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="ilosc powtorzen danego pytania"/>
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding ActualQuestionRepetition}"/>
+            <ProgressBar Grid.Row="4" Grid.ColumnSpan="2" Orientation="Vertical" Minimum="0" Value="{Binding LernedQuestionCount}" Maximum="{Binding QuestionCount}" Background="IndianRed" Foreground="LightGreen" Margin="15,10,35,10"/>
+        </Grid>
         <Button Grid.Row="3" Command="{Binding ToMainWindowCommand}" CommandParameter="{Binding ElementName=window}" Content="powrot"/>
-        <Button Grid.Row="3" Grid.Column="1" Command="{Binding ToEditQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="edytuj"/>
-        <Button Grid.Row="3" Grid.Column="2" Content="sprawdz" Command="{Binding CheckAnswersCommand}" CommandParameter="{Binding ElementName=answersList,Path=SelectedItems}" />
+        <Button Grid.Row="3" Grid.Column="1" Command="{Binding ToEditQuestionCommand}" CommandParameter="{Binding ElementName=window}" Content="edytuj" IsEnabled="False"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="sprawdz" CommandParameter="{Binding ElementName=answersList,Path=SelectedItems}" Command="{Binding CheckAnswersCommand}"  />
         <Button Grid.Row="3" Grid.Column="3" Content="dalej"  Command="{Binding NextQuestionCommand}" Name="Next" />
     </Grid>
 </Window>
