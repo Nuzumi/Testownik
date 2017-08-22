@@ -25,6 +25,8 @@ namespace Testownik.ViewModels
         public ICommand ToEditQuestionCommand { get; set; }
         public ICommand AddDatabaseCommand { get; set; }
         public ICommand DeleteDatabaseCommand { get; set; }
+        public ICommand DeleteQuestionCommand { get; set; }
+        public ICommand DeleteAnswerCommand { get; set; }
 
         public byte[] QuestionImage { get; set; }
 
@@ -57,6 +59,7 @@ namespace Testownik.ViewModels
             {
                 SetProperty(ref selectedTest, value);
                 questionListUpdate();
+                (ToAddQuestionCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
@@ -69,6 +72,17 @@ namespace Testownik.ViewModels
                 SetProperty(ref selectedQuestion, value);
                 answerListUpdate();
                 PictureUpdate();
+                (ToEditQuestionCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private Answer selectedAnswer;
+        public Answer SelectedAnswer
+        {
+            get { return selectedAnswer; }
+            set
+            {
+                SetProperty(ref selectedAnswer, value);
             }
         }
 
@@ -94,22 +108,24 @@ namespace Testownik.ViewModels
         public void prepare()
         {
             ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
-            ToAddQuestionCommand = new DelegateCommand<Window>(ToAddQuestion);
-            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);//dodac canExecute jak bedzi juz pole z id
+            ToAddQuestionCommand = new DelegateCommand<Window>(ToAddQuestion, CanGoToAddWindow);
+            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion, CanGoToEditWindow);//dodac canExecute jak bedzi juz pole z id
             AddDatabaseCommand = new DelegateCommand(AddDatabase, CanAddDatabase);
             DeleteDatabaseCommand = new DelegateCommand(DeleteDatabase);
+            DeleteQuestionCommand = new DelegateCommand(DeleteQuestion);
+            DeleteAnswerCommand = new DelegateCommand(DeleteAnswer);
             repo = new TestRepository(new TestownikContext());
             TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
         }
 
         private void questionListUpdate()
         {
-            QuestionList = new ObservableCollection<Question>(repo.GetQuestionsForTest(selectedTest.Ref));  
+            QuestionList = new ObservableCollection<Question>(repo.GetQuestionsForTest(selectedTest.Ref));
         }
 
         private void answerListUpdate()
         {
-            AnswerList = new ObservableCollection<Answer>(repo.GetAnswersForQuestions(selectedQuestion.Ref));
+            AnswerList = null;
         }
 
         private void PictureUpdate()
@@ -141,7 +157,7 @@ namespace Testownik.ViewModels
         private void ToAddQuestion(Window window)
         {
             AddEditQuestion addEdit = new AddEditQuestion();
-            AddEditQuestionVM addEditVM = new AddEditQuestionVM(WindowsTypes.Browser);
+            AddEditQuestionVM addEditVM = new AddEditQuestionVM(WindowsTypes.Browser, selectedTest.Ref );
             addEdit.DataContext = addEditVM;
             addEdit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             addEdit.Show();
@@ -151,7 +167,7 @@ namespace Testownik.ViewModels
         private void ToEditQuestion(Window window)
         {
             AddEditQuestion addEdit = new AddEditQuestion();
-            AddEditQuestionVM addEditVM = new AddEditQuestionVM(WindowsTypes.Browser);// tu jeszcze dodac id wybranego pytania
+            AddEditQuestionVM addEditVM = new AddEditQuestionVM(WindowsTypes.Browser, SelectedQuestion.RefTest, SelectedQuestion.Ref);// tu jeszcze dodac id wybranego pytania
             addEdit.DataContext = addEditVM;
             addEdit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             addEdit.Show();
@@ -176,6 +192,44 @@ namespace Testownik.ViewModels
         {
             repo.DeleteTest(SelectedTest);
             TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
+        }
+
+        private void DeleteQuestion()
+        {
+            repo.DeleteQuestion(SelectedQuestion);
+            repo.SaveChanges();
+            QuestionList = new ObservableCollection<Model.Question>(repo.GetQuestionsForTest(selectedTest.Ref));
+        }
+
+        private void DeleteAnswer()
+        {
+            repo.DeleteAnswer(SelectedAnswer);
+            repo.SaveChanges();
+            AnswerList = new ObservableCollection<Model.Answer>(repo.GetAnswersForQuestions(selectedQuestion.Ref));
+        }
+
+        private bool CanGoToEditWindow(Window dummyWindow)
+        {
+            if (SelectedQuestion != null)
+            {
+                if (SelectedQuestion is Model.Question)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool CanGoToAddWindow(Window dummyWindow)
+        {
+            if (SelectedTest != null)
+            {
+                if (SelectedTest is Model.Test)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         //Commands end
     }

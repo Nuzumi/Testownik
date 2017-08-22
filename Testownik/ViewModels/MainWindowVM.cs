@@ -73,7 +73,7 @@ namespace Testownik.ViewModels
 
             QuestionRepetitionAftherBadAnswer = 2;
             QuestionRepetitionOnStart = 3;
-            
+
         }
 
         private void UpdateQuestionAmount()

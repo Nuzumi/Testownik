@@ -19,25 +19,31 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label  Margin="8">
-            pytanie
-        </Label>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed dolor viverra, vestibulum sapien sit amet, aliquet nulla. Fusce ullamcorper, leo eu accumsan semper, ligula est tempor lacus, eu pellentesque velit mauris vitae tellus. Phasellus sit amet nibh interdum, pulvinar massa vel, pharetra nibh.
+        <TextBlock  Margin="8" Text="{Binding SelectedQuestion.QuestionNo}" Grid.ColumnSpan="1" Grid.Row="0"
+                    Grid.Column="0">
         </TextBlock>
+        <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,0,0" TextWrapping="Wrap" HorizontalContentAlignment="Stretch" Text="{Binding SelectedQuestion, Converter={StaticResource QuestionToTextConverter}}" Name="QuestionContent">
+        </TextBox>
         <Image Grid.ColumnSpan="3" Grid.Row="2" Margin="10,0,0,0" Source="{Binding ImageSource}"/>
         <Button Grid.Row="3" Margin="10" Command="{Binding GoBackCommand}" CommandParameter="{Binding ElementName=window}">
             powrot
         </Button>
-        <Button Grid.Column="1" Grid.Row="3" Margin="10">
+        <Button Grid.Column="1" Grid.Row="3" Margin="10" Command="{Binding SaveChangesCommand}">
             zapiszcz
         </Button>
         <Button Grid.Row="3" Grid.Column="2" Margin="10">
             dodaj obrazek
         </Button>
-        <ListView  Grid.Column="3" Grid.RowSpan="3" Margin="15" HorizontalContentAlignment="Stretch">
-            
+        <ListView  Grid.Column="3" Grid.RowSpan="3" Margin="15" HorizontalContentAlignment="Stretch" ItemsSource="{Binding AnswerList}" Name="answerListView" SelectedItem="{Binding SelectedAnswer}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Margin="0,3">
+                        <CheckBox IsEnabled="True" IsChecked="{Binding Correct}" DockPanel.Dock="Right" Margin="6,0,0,0" />
+                        <TextBox Text="{Binding Content}" FontSize="12" Width="{Binding Path=ActualWidth ,ElementName=answerListView, Converter={StaticResource SubtractConverter}, ConverterParameter=@VALUE-36}" BorderThickness="0"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Column="3" Grid.Row="3" Margin="15,10,15,10" Content="+"/>
+        <Button Grid.Column="3" Grid.Row="3" Margin="15,10,15,10" Content="+" Command="{Binding AddNewQuestionCommand}"/>
     </Grid>
 </Window>

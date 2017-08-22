@@ -58,21 +58,22 @@ namespace Testownik.Repository
         }
 
         public void CreateQuestion(Question question)
-        {
+        { 
+            List<Model.Question> questions = GetQuestionsForTest(question.RefTest);
+            question.QuestionNo = questions.Count==0 ? 1 : questions.Max(q => q.QuestionNo) + 1;// jak questions jest nullem, a wlasciwie int?, to 1.
             context.Set<Question>().Add(question);
-            context.SaveChanges();
+            GetTestById(question.RefTest).QuestionsCount++;
         }
 
         public void DeleteQuestion(Question question)
         {
+            GetTestById(question.RefTest).QuestionsCount--;
             context.Set<Question>().Remove(question);
-            context.SaveChanges();
         }
 
-        public void EditTest(Question question)
+        public void EditQuestion(Question question)
         {
             context.Entry<Question>(question).CurrentValues.SetValues(question);
-            context.SaveChanges();
         }
 
 
@@ -89,19 +90,16 @@ namespace Testownik.Repository
         public void CreateAnswer(Answer answer)
         {
             context.Set<Answer>().Add(answer);
-            context.SaveChanges();
         }
 
         public void DeleteAnswer(Answer answer)
         {
             context.Set<Answer>().Remove(answer);
-            context.SaveChanges();
         }
 
         public void EditAnswer(Answer answer)
         {
             context.Entry<Answer>(answer).CurrentValues.SetValues(answer);
-            context.SaveChanges();
         }
         
         public List<Question> GetQuestionsForTest(int testId)
@@ -109,9 +107,14 @@ namespace Testownik.Repository
             return GetAllQuestions().Where(q => q.RefTest.Equals(testId)).ToList();
         }
 
-        internal List<Answer> GetAnswersForQuestions(int questionId)
+        public List<Answer> GetAnswersForQuestions(int questionId)
         {
             return GetAllAnswers().Where(q => q.RefQuestion.Equals(questionId)).ToList();
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
         }
     }
 }

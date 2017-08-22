@@ -190,7 +190,7 @@ namespace Testownik.ViewModels
         private void ToEditQuestion(Window window)
         {
             AddEditQuestion addEdit = new AddEditQuestion();
-            AddEditQuestionVM dataContext = new AddEditQuestionVM(WindowsTypes.Test);
+            AddEditQuestionVM dataContext = new AddEditQuestionVM(WindowsTypes.Test, ActualQuestion.RefTest, ActualQuestion.Ref);
             addEdit.DataContext = dataContext;
             addEdit.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             addEdit.Show();

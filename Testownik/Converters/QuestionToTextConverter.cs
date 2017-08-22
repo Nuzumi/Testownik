@@ -24,12 +24,12 @@ namespace Testownik.Converters
                     return "pytanie nie ma tresci";
                 }
             }
-            return "nie wybrano pytania albo tez jakis blad";
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return new Question { Content = value.ToString() };
         }
     }
 }
