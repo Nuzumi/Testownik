@@ -31,6 +31,8 @@ namespace Testownik.ViewModels
             this.questionRepetitionAtOnce = questionRepetitionAtOnce;
             GoodAnswersCount = goodAnswersCount;
             BadAnswersCount = badAnswersCount;
+			
+			//modyfikacja wow
         }
 
         //command start
