@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Milena\C#\Testownik\Testownik\obj\Debug\
+D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\
 Testownik
 none
 false
 DEBUG;TRACE
-C:\Milena\C#\Testownik\Testownik\App.xaml
+D:\Nowy folder\c#_programy\Testownik\Testownik\App.xaml
 6131329050
 
-33868433219
-76-1965479714
+30-2061234542
+76-1917052436
 AddDatabaseDialogWindow.xaml;AddEditQuestion.xaml;FinishedTest.xaml;MainWindow.xaml;BaseQuestionBrowser.xaml;Test.xaml;
 
-False
+True
 

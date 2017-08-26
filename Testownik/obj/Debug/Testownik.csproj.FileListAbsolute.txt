@@ -123,3 +123,5 @@ D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\System.Data.SQLite.Linq
 D:\Nowy folder\c#_programy\Testownik\Testownik\bin\Debug\System.Data.SQLite.xml
 C:\Milena\C#\Testownik\Testownik\obj\Debug\FinishedTest.g.cs
 C:\Milena\C#\Testownik\Testownik\obj\Debug\FinishedTest.baml
+D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\FinishedTest.g.cs
+D:\Nowy folder\c#_programy\Testownik\Testownik\obj\Debug\FinishedTest.baml

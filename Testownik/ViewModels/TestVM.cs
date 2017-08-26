@@ -103,21 +103,34 @@ namespace Testownik.ViewModels
 
         public TestVM(Model.Test test, int repetitionAtStart, int repetitionAftherBadAnswer, int questionAmountAtOnce)
         {
-            ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
-            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);
-            NextQuestionCommand = new DelegateCommand(NextQuestion,CanNextQuestion);
-            CheckAnswersCommand = new DelegateCommand<object>(CheckAnswers,CanCheckAnswers);
 
-            AnswerText = "";
-
-            testRepository = new TestRepository(new TestownikContext());
-            this.repetitionAftherBadAnswer = repetitionAftherBadAnswer;
-            this.questionAmountAtOnce = questionAmountAtOnce;
+            prepare(repetitionAftherBadAnswer,questionAmountAtOnce);        
             questionList = prepareQuestions(test, repetitionAtStart);
             QuestionCount = questionList.Count;
-            LernedQuestionCount = 0;
             questionListToUse = takeXRandomQuestions(questionAmountAtOnce);
             takeRandomActualQuestion();
+        }
+
+        public TestVM(int repetitionAftherBadAnswer, int questionAmountAtOnce, Model.Test test)
+        {
+            prepare(repetitionAftherBadAnswer, questionAmountAtOnce);
+            questionList = testRepository.GetArchQuestionsForTest(test.Ref);
+            questionListToUse = takeXRandomQuestions(questionAmountAtOnce);
+            QuestionCount = test.QuestionsCount;
+            takeRandomActualQuestion();
+        }
+
+        private void prepare( int repetitionAftherBadAnswer, int questionAmountAtOnce)
+        {
+            ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
+            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion);
+            NextQuestionCommand = new DelegateCommand(NextQuestion, CanNextQuestion);
+            CheckAnswersCommand = new DelegateCommand<object>(CheckAnswers, CanCheckAnswers);
+            testRepository = new TestRepository(new TestownikContext());
+            AnswerText = "";
+            this.repetitionAftherBadAnswer = repetitionAftherBadAnswer;
+            this.questionAmountAtOnce = questionAmountAtOnce;
+            LernedQuestionCount = 0;
         }
 
         private List<Tuple<Question, int>> prepareQuestions(Model.Test test, int repetition)
