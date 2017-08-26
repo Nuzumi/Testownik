@@ -20,6 +20,7 @@ namespace Testownik.ViewModels
         // properties start
         public ICommand ToBrowserCommand { get; set; }
         public ICommand ToTestCommand { get; set; }
+        public ICommand ContinueLastTestCommand { get; set; }
 
         public ObservableCollection<Model.Test> TestList { get; set; }
 
@@ -32,6 +33,7 @@ namespace Testownik.ViewModels
                 SetProperty(ref selectedTest, value);
                 UpdateQuestionAmount();
                 (ToTestCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+                (ContinueLastTestCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
@@ -69,6 +71,7 @@ namespace Testownik.ViewModels
             repo = new TestRepository(new TestownikContext());
             ToBrowserCommand = new DelegateCommand<Window>(ToBrowser);
             ToTestCommand = new DelegateCommand<Window>(ToTest,CanGoToTest);
+            ContinueLastTestCommand = new DelegateCommand<Window>(ContinueLastTest, CanContinueLastTest);
             TestList = new ObservableCollection<Model.Test>(repo.GetAllTests());
 
             QuestionRepetitionAftherBadAnswer = 2;
@@ -124,6 +127,28 @@ namespace Testownik.ViewModels
                 }
             }
             return false;
+        }
+
+        private void ContinueLastTest(Window window)
+        {
+            Test test = new Test();
+            TestVM testVM = new TestVM(QuestionRepetitionAftherBadAnswer, QuestionRepetitionAtOnce,SelectedTest);
+            test.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            test.DataContext = testVM;
+            test.Show();
+            window.Close();
+        }
+
+        private bool CanContinueLastTest(Window dummyWindow)
+        {
+            if(repo.GetArchQuestionsForTes(SelectedTest.Ref) == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         //Commends End
     }

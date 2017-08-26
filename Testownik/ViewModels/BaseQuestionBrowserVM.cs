@@ -109,7 +109,7 @@ namespace Testownik.ViewModels
         {
             ToMainWindowCommand = new DelegateCommand<Window>(ToMainWindow);
             ToAddQuestionCommand = new DelegateCommand<Window>(ToAddQuestion, CanGoToAddWindow);
-            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion, CanGoToEditWindow);//dodac canExecute jak bedzi juz pole z id
+            ToEditQuestionCommand = new DelegateCommand<Window>(ToEditQuestion, CanGoToEditWindow);
             AddDatabaseCommand = new DelegateCommand(AddDatabase, CanAddDatabase);
             DeleteDatabaseCommand = new DelegateCommand(DeleteDatabase);
             DeleteQuestionCommand = new DelegateCommand(DeleteQuestion);
@@ -125,7 +125,11 @@ namespace Testownik.ViewModels
 
         private void answerListUpdate()
         {
-            AnswerList = null;
+            if(SelectedQuestion != null)
+            {
+                AnswerList = new ObservableCollection<Model.Answer> (repo.GetAnswersForQuestions(SelectedQuestion.Ref));
+            }
+            // jak sie usuwa ostatnie pytanie to 
         }
 
         private void PictureUpdate()

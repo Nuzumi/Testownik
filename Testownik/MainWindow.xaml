@@ -70,6 +70,6 @@
         </Grid>
         <Button Grid.Column="1" Command="{Binding ToBrowserCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,20,17,10" Content="tryb edycji" MinHeight="45"/>
         <Button Grid.Column="1" Grid.Row="2" Command="{Binding ToTestCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="17,25,17,25" Content="zacznij sie uczyc" />
-        <Button Grid.Column="1" Grid.Row="3" Margin="17,25,17,25" Content="kontynuluj ostatnie podejscie" />
+        <Button Grid.Column="1" Grid.Row="3" Margin="35,25,35,25" Content="kontynuluj ostatnie podejscie" Command="{Binding ContinueLastTestCommand}" CommandParameter="{Binding ElementName=mainWindow}" />
     </Grid>
 </Window>

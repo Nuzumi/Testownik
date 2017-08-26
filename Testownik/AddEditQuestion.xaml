@@ -35,12 +35,31 @@
             dodaj obrazek
         </Button>
         <ListView  Grid.Column="3" Grid.RowSpan="3" Margin="15" HorizontalContentAlignment="Stretch" ItemsSource="{Binding AnswerList}" Name="answerListView" SelectedItem="{Binding SelectedAnswer}">
-            <ListView.ItemTemplate>
+           <!-- <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel Margin="0,3">
                         <CheckBox IsEnabled="True" IsChecked="{Binding Correct}" DockPanel.Dock="Right" Margin="6,0,0,0" />
                         <TextBox Text="{Binding Content}" FontSize="12" Width="{Binding Path=ActualWidth ,ElementName=answerListView, Converter={StaticResource SubtractConverter}, ConverterParameter=@VALUE-36}" BorderThickness="0"/>
                     </DockPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" MinHeight="22"/>
+                            <RowDefinition Height="*" MinHeight="22"/>
+                            <RowDefinition Height="*" MinHeight="22"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Grid.RowSpan="3" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Content}" Width="{Binding Path=ActualWidth, ElementName=odpowiedziListView, Converter={StaticResource SubtractConverter}, ConverterParameter=@VALUE-45}"/>
+                        <CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Correct}" ToolTip="poprawne czy nie"/>
+                        <Button Grid.Column="2" Content="x" ToolTip="usuwanie pytania" Background="White" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
