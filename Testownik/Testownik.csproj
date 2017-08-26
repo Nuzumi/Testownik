@@ -101,6 +101,7 @@
     <Compile Include="AddEditQuestion.xaml.cs">
       <DependentUpon>AddEditQuestion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ArchiveConverter.cs" />
     <Compile Include="Converters\QuestionToTextConverter.cs" />
     <Compile Include="Converters\SubtractConverter.cs" />
     <Compile Include="BaseQuestionBrowser.xaml.cs">
@@ -111,6 +112,8 @@
     </Compile>
     <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Model\Answer.cs" />
+    <Compile Include="Model\ArchQuestion.cs" />
+    <Compile Include="Model\ArchStat.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\Question.cs" />

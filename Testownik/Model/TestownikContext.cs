@@ -19,6 +19,8 @@ namespace Testownik.Model
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<ArchQuestion> ArchQuestions { get; set; }
+        public DbSet<ArchStat> ArchStats { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
