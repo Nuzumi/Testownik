@@ -148,7 +148,7 @@ namespace Testownik.ViewModels
         {
             Random rand = new Random();
             List<Tuple<Question, int>> value = new List<Tuple<Question, int>>();
-            for (int i =0; i < X; i++)
+            for (int i =0; i < X && i<questionList.Count; i++)
             {
                 var question = questionList[rand.Next(questionList.Count)];
                 questionList.Remove(question);
@@ -191,11 +191,22 @@ namespace Testownik.ViewModels
             ActualQuestionAnswersList = result;
         }
 
+        private List<Tuple<Question,int>> ConcatenateQuestionsList()
+        {
+            List<Tuple<Question, int>> tmp = questionList;
+            foreach(Tuple<Question,int> q in questionListToUse)
+            {
+                tmp.Add(q);
+            }
+            return tmp;
+        }
         //command start
         private void ToMainWindow(Window window)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            questionListToUse.Add(new Tuple<Question, int>(ActualQuestion,ActualQuestionRepetition));
+            testRepository.SaveArchQuestionsForTest(ConcatenateQuestionsList());
             mainWindow.Show();
             window.Close();
         }
