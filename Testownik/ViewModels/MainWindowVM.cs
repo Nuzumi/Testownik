@@ -141,13 +141,20 @@ namespace Testownik.ViewModels
 
         private bool CanContinueLastTest(Window dummyWindow)
         {
-            if(repo.GetArchQuestionsForTes(SelectedTest.Ref) == null)
+            if (SelectedTest != null)
             {
-                return false;
+                if (repo.GetArchQuestionsForTest(SelectedTest.Ref).Count !=0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return true;
+                return false;
             }
         }
         //Commends End
